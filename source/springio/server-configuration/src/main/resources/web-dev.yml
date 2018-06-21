@@ -1,0 +1,12 @@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.socket: DEBUG
+    org.springframework.data.mongodb.core.index: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+  instance:
+    hostname: ${WEB_SERVER_IP:127.0.0.1}

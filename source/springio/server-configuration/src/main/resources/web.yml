@@ -1,0 +1,62 @@
+server:
+  port: ${WEB_SERVER_PORT:8080}
+
+logging:
+  level:
+    org.springframework.security: ERROR
+    org.springframework.web.socket: ERROR
+    org.springframework.data.mongodb.core.index: ERROR
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.24.20:8761/eureka
+  instance:
+    hostname: ${WEB_SERVER_IP:192.168.24.30}
+    lease-renewal-interval-in-seconds: 3
+    metadata-map:
+      instanceId: ${spring.application.name}:${random.value}
+      prefer-ip-address: false
+
+spring:
+  jackson:
+    serialization-inclusion: non_null
+    property-naming-strategy: CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES
+  redis:
+    host: 192.168.24.50
+    port: 6379
+  data:
+    mongodb:
+      host: 192.168.24.60
+      database: ellenchia-springio
+  datasource:
+    #platform: postgresql
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.24.70:5432/spring.io
+    username: ellen
+    password: chia
+  freemarker:
+    checkTemplateLocation: false
+    template-loader-path: classpath:/templates/view
+    prefix: /
+    suffix: .ftl
+#  cloud:
+#    stream:
+#      bindings:
+#        notification:
+#          destination: topic.notification
+#      kafka:
+#        binder:
+#          brokers: 192.168.24.30
+#          zkNodes: 192.168.24.100
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+feign:
+  hystrix:
+    enabled: false

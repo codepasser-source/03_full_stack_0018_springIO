@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ellenchia</groupId>
+    <artifactId>springio-platform</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>springio-platform</name>
+    <description>springio-platform-parent</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.1.RELEASE</version>
+    </parent>
+
+    <modules>
+        <module>server-configuration</module>
+        <module>server-registry</module>
+        <module>common</module>
+        <module>core</module>
+        <module>model</module>
+        <module>dbcore</module>
+        <module>service</module>
+        <module>service-impl</module>
+        <module>web</module>
+    </modules>
+
+    <properties>
+        <project.build.finalName>springio-platform</project.build.finalName>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.number>${maven.build.timestamp}</project.build.number>
+        <java.version>1.8</java.version>
+        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+
+        <!-- libraries version-->
+        <zxing.version>3.3.0</zxing.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project modules -->
+            <dependency>
+                <groupId>com.ellenchia</groupId>
+                <artifactId>common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ellenchia</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ellenchia</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ellenchia</groupId>
+                <artifactId>dbcore</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ellenchia</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ellenchia</groupId>
+                <artifactId>service-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Spring boot dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>1.4.1.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring cloud dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Camden.SR1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring boot expanding -->
+            <!--If there is a problem with the corresponding version, add another version dependent-->
+
+            <!-- Spring cloud expanding -->
+            <!--If there is a problem with the corresponding version, add another version dependent-->
+
+            <!-- Libraries -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Common libraries -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0-rc1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.build.finalName}</finalName>
+        <directory>${basedir}/target</directory>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <outputDirectory>${basedir}/target/classes</outputDirectory>
+        <!--
+        <filters>
+            <filter>${basedir}/src/main/filters/basic-${env}.properties</filter>
+        </filters>
+        -->
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- resource -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipSource>true</skipSource>
+                </configuration>
+            </plugin>
+            <!-- jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>${basedir}/src/main/filters/*.properties</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <!-- proguard -->
+            <!--
+            <plugin>
+                <groupId>com.idfconnect.devtools</groupId>
+                <artifactId>idfc-proguard-maven-plugin</artifactId>
+                <version>1.0.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>obfuscate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <proguardIncludeFile>${basedir}/proguard.pro</proguardIncludeFile>
+                    <inputFile>${project.build.outputDirectory}</inputFile>
+                    <libraryJarPaths>
+                        <libraryJarPath>${java.home}/lib/jce.jar</libraryJarPath>
+                        <libraryJarPaths>${java.home}/lib/rt.jar</libraryJarPaths>
+                    </libraryJarPaths>
+                    <excludeManifests>false</excludeManifests>
+                    <excludeMavenDescriptor>false</excludeMavenDescriptor>
+                    <outputArtifacts>
+                        <outputArtifact>
+                            <file>${project.build.finalName}.${project.packaging}</file>
+                        </outputArtifact>
+                    </outputArtifacts>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.proguard</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>4.11</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            -->
+            <!-- install -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+            <!-- deploy -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

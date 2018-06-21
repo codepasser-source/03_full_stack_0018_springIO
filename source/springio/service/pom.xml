@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>springio-platform</artifactId>
+        <groupId>com.ellenchia</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>service</artifactId>
+    <name>service</name>
+    <description>springio-platform(service)</description>
+
+    <properties>
+        <project.build.finalName>service</project.build.finalName>
+    </properties>
+
+    <dependencies>
+        <!-- Project modules -->
+        <dependency>
+            <groupId>com.ellenchia</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+
+        <!-- Spring boot dependencies -->
+
+        <!-- Spring cloud dependencies -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+
+        <!-- Libraries -->
+
+    </dependencies>
+
+
+</project>
